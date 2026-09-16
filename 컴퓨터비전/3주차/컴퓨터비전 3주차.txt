@@ -1,0 +1,86 @@
+이벤트
+- 프로그램에 의해 감지되고 처리될 수 있는 동작이나 사건
+- 예
+  - 사용자가 키보드 키 누르는 것
+  - 마우스를 움직인다거나 마우스 버튼 누르는 것
+  - 깊이 들어가면 타이머와 같은 하드웨어 장치가 발생시키는 이벤트
+  - 사용자가 자체적으로 정의하는 이벤트
+- 일반적으로 이벤트를 처리하기 위해 콜백 함수 사용
+- 콜백 함수
+  - 개발자가 시스템 함수를 직접 호출하는 방식
+  - 이벤트가 발생하거나 특정 시점에 도달했을 때 시스템이 개발자가 등록한 함수 호출
+- OpenCV에서도 기본적인 이벤트 처리 함수 지원
+  - 키보드 이벤트, 마우스 이벤트, 트랙바 이벤트
+
+마우스 이벤트 처리 콜백 함수
+- onMouse(event, x, y, flags, param=None)
+- 발생한 마우스 이벤트에 대한 처리와 제어를 구현하는 콜백 함수, cv2.setMouseCallback()
+  함수의 두 번째 인수(onMouse)의 구현부, 따라서 이름이 같아야 함, onMouse() 함수의 인수
+  구조(인수 타입, 인수 순서 등)를 유지해야 함.
+- event: 발생한 마우스 이벤트 종류
+- x, y: 이벤트 발생 시 마우스 포인터의 x,y 좌표
+- flags: 마우스 버튼과 동시에 특수키 눌렸는지 확인
+- cv2.EVENT_?BDOWN 
+  - ? 버튼 누르기
+- MOUSEMOVE
+  - 마우스 움직임
+- def setMouseCallback(windowName, onMouse, param=None)
+  - 이벤트 발생 확인할 윈도우 이름, 마우스 이벤트 처리할 콜백 함수 이름, 
+    이벤트 처리 함수로 전달할 추가적인 사용자 정의 인수
+
+트랙바
+- 일정한 범위에서 특정한 값을 선택할 때 사용하는 일종의 스크롤바 혹은 슬라이더바
+- cv2.createTrackbar(trackbarname, winname, value count, onChange)
+  - 트랙바 생성한 후, 지정한 윈도우에 추가하는 함수
+  - trackbarname: 윈도우에 생성되는 트랙바 이름
+  - winname: 부모 윈도우 이름
+  - value: 트랙바 슬라이더 위치 반영
+  - count: 트랙바 슬라이더의 최댓값, 최솟값은 항상 0
+  - onChange: 트랙바 슬라이더의 값이 변경될 때 호출되는 콜백 함수
+- cv2.getRackbarPos(trackbarname, winname)
+  - 지정한 트랙바 슬라이더 위치 반환
+- cv2.setTrackbarPos(trackbarname, winname, pos)
+  - 지정한 트랙바의 슬라이더 위치 설정
+
+영상처리 프로그래밍 과정에서 해당 알고리즘 적용시 결과 확인 필요
+- 얼굴 검출 알고리즘을 적용했을 때
+  - 전체 영상 위에 검출한 얼굴 영역을 사각형이나 원으로 표시
+- 차선 확인하고자 직선 검출 알고리즘을 적용했을 때
+  - 차선을 정확하게 검출했는지 확인하기 위해 도로 영상 위에 선으로 표시
+
+cv2.putText()
+- 행렬의 특정 위치에 원하는 글자를 써서 영상으로 표시하고 싶을 때 사용
+- cv2.putText(img, text, org, fontFace, fontScale, color[thickness[,lineType[,bottomLeftOrigin]]])
+  - img: 문자열 작성할 대상
+  - text: 문자열
+  - org: 문자열 시작 좌표, 가장 왼쪽 하단
+  - fontFace: 문자열 폰트
+  - fontScale: 글자 크기 확대 비율
+  - color: 글자 색상
+  - thichness: 글자 굵기
+  - lineType: 글자 선의 형태
+  - bottomLeftOrigin: 영상의 원점 좌표 설정(True-좌하단 왼쪽, False-좌상단)
+
+글자 폰트 -----> 다음주 퀴즈
+- 글자를 이미지로 렌더링 하기 때문에 글자 폰트를 지정하지 않으면 렌더링이 힘듬 
+- 세리프 체
+  - 글자의 획 끝에 날카롭게 튀어나온 글자체
+  - 명조체, 궁서체 등
+- 산세리프 체
+  - 날카로운 장식선이 없는 글자체
+  - 돋움체, 고딕체
+
+cv2.circle(img, center, radius, color[,thickness[,lineType[,shift]]])
+- img: 원 그릴 대상
+- center: 원 중심좌표
+- radius: 원 반지름
+- color: 선 색상
+- thickness: 선 두께
+- lineType: 선의 형태
+- shift: 좌표에 대한 비트 시프트 연산
+
+★ 글씨 두개 겹쳐서 그림자 효과 주는거 100% 시험에 나옴
+- 픽셀 2칸씩 띄워주기
+- 검은색 그림자가 무조건 먼저 나오기
+- 타원은 시험 안 나옴
+
